@@ -25,6 +25,8 @@ The project is divided into three main parts:
 ### Part I: File Base
 Analysis of French presidential speeches stored in the `speeches` directory. File names follow the format `Nomination_[president's name][number].txt`.
 
+
+dvfgj
 ### Basic Functions
 - Extracting presidents' names from the files.
 - Associating a first name with each president.
