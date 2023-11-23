@@ -11,31 +11,76 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <style>
+        .hidden {
+            display: none;
+        }
+
+    </style>
+
     
 </head>
 <body class="bg-gray-100">
     <div class="flex items-center justify-center h-screen">
-        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl">
             <h1 class="text-2xl font-bold mb-4 text-black">Python Chat Bot</h1>
             <div id="chatbox" class="h-96 overflow-auto mb-4 p-4 bg-gray-50 rounded">
-                <!-- Chat messages will go here -->
+                <div id="loadingAnimation" class="text-gray-700 flex space-x-4">
+                    <span class="font-bold">ChatBot: </span>
+                    <div class="loader loader--style8" title="7">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                        <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                        <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                        <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div id="aiResponse" class="text-gray-700 hidden">
+                    <span class="font-bold">ChatBot: </span>
+                    Welcome to Loris and Hector's ia ask us some questions and I'll get back to you according to my training.
+                </div>
+                
+
             </div>
-            <div class="flex space-x-2 px-2">
+            <div class="flex items-center justify-center space-x-2 px-2">
                 <!-- <input type="text" id="user_input" class="flex-grow p-2 border rounded-l-lg focus:outline-none focus:border-blue-500" placeholder="Type your message here..."> -->
                 <!-- <button class="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600" onclick="sendMessage()">Send</button> -->
-                <input id="user_input" class="input-ghost-primary input text-black" placeholder="Type your message here..." />
-                <button class="btn bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600" onclick="sendMessage()">Send</button>
+                <input id="user_input" class="input-ghost-primary input text-black grow" placeholder="Type your message here..." />
+                <button class="btn bg-blue-500 text-white px-4 hover:bg-blue-600" onclick="sendMessage()">Send</button>
 
             </div>
         </div>
     </div>
 
+
+    
     <script>
-        // JavaScript for handling chat and button click events
         function sendMessage() {
             var message = document.getElementById('user_input').value;
-            // Code to handle the sending message
+
         }
+
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('loadingAnimation').classList.add('hidden');
+                document.getElementById('aiResponse').classList.remove('hidden');
+            }, 2000);
+        };
+
     </script>
 </body>
 </html>
