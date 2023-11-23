@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Chat Bot</title>
+    <!-- Include Tailwind CSS CDN -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    
+</head>
+<body class="bg-gray-100">
+    <div class="flex items-center justify-center h-screen">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h1 class="text-2xl font-bold mb-4 text-black">Python Chat Bot</h1>
+            <div id="chatbox" class="h-96 overflow-auto mb-4 p-4 bg-gray-50 rounded">
+                <!-- Chat messages will go here -->
+            </div>
+            <div class="flex space-x-2 px-2">
+                <!-- <input type="text" id="user_input" class="flex-grow p-2 border rounded-l-lg focus:outline-none focus:border-blue-500" placeholder="Type your message here..."> -->
+                <!-- <button class="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600" onclick="sendMessage()">Send</button> -->
+                <input id="user_input" class="input-ghost-primary input text-black" placeholder="Type your message here..." />
+                <button class="btn bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600" onclick="sendMessage()">Send</button>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for handling chat and button click events
+        function sendMessage() {
+            var message = document.getElementById('user_input').value;
+            // Code to handle the sending message
+        }
+    </script>
+</body>
+</html>

@@ -5,7 +5,7 @@ import nltk
 nltk.download('punkt')
 from nltk.tokenize import sent_tokenize
 
-with open('/content/Nomination_Chirac1.txt', 'r', encoding='utf-8') as file:
+with open('/speeches/Nomination_Chirac1.txt', 'r', encoding='utf-8') as file:
     text = file.read()
     documents = sent_tokenize(text, language='french')
 
