@@ -11,14 +11,17 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    
     <style>
         .hidden {
             display: none;
         }
+        
+        </style>
 
-    </style>
 
-    
 </head>
 <body class="bg-gray-100">
     <div class="flex items-center justify-center h-screen">
@@ -45,42 +48,61 @@
                             <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
                             <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
                         </rect>
-                        </svg>
-                    </div>
+                    </svg>
                 </div>
-                
-                <div id="aiResponse" class="text-gray-700 hidden">
-                    <span class="font-bold">ChatBot: </span>
-                    Welcome to Loris and Hector's ia ask us some questions and I'll get back to you according to my training.
-                </div>
+            </div>
+            
+            <div id="aiResponse" class="text-gray-700 hidden">
+                <span class="font-bold">ChatBot: </span>
+                Welcome to Loris and Hector's ia ask us some questions and I'll get back to you according to my training.
+            </div>
                 
 
-            </div>
-            <div class="flex items-center justify-center space-x-2 px-2">
-                <!-- <input type="text" id="user_input" class="flex-grow p-2 border rounded-l-lg focus:outline-none focus:border-blue-500" placeholder="Type your message here..."> -->
-                <!-- <button class="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600" onclick="sendMessage()">Send</button> -->
-                <input id="user_input" class="input-ghost-primary input text-black grow" placeholder="Type your message here..." />
-                <button class="btn bg-blue-500 text-white px-4 hover:bg-blue-600" onclick="sendMessage()">Send</button>
-
-            </div>
+        </div>
+        <div class="flex items-center justify-center space-x-2 px-2">
+            <!-- <input type="text" id="user_input" class="flex-grow p-2 border rounded-l-lg focus:outline-none focus:border-blue-500" placeholder="Type your message here..."> -->
+            <!-- <button class="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600" onclick="sendMessage()">Send</button> -->
+            <input id="user_input" class="input-ghost-primary input text-black grow" placeholder="Type your message here..." />
+            <button class="btn bg-blue-500 text-white px-4 hover:bg-blue-600" onclick="sendMessage()">Send</button>
+            
         </div>
     </div>
+</div>
 
 
-    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
-        function sendMessage() {
-            var message = document.getElementById('user_input').value;
-
+        function sendToast(text) {
+            Toastify({
+                text: text,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "bottom",
+                position: "right",
+                stopOnFocus: false, // Prevents dismissing of toast on hover
+                style: {
+                    background: "linear-gradient(to left, #5a8ad6, #3968b3)",
+                },
+            }).showToast();
         }
 
-        window.onload = function() {
-            setTimeout(() => {
-                document.getElementById('loadingAnimation').classList.add('hidden');
-                document.getElementById('aiResponse').classList.remove('hidden');
-            }, 2000);
-        };
+    sendToast("Chargement des Textes")
 
+    function sendMessage() {
+        console.log('Sending message...');
+        var message = document.getElementById('user_input').value;
+        sendToast("Requets bien envoyé !")
+        
+    }
+    
+    window.onload = function() {
+        setTimeout(() => {
+            document.getElementById('loadingAnimation').classList.add('hidden');
+            document.getElementById('aiResponse').classList.remove('hidden');
+        }, 2000);
+    };
+    
     </script>
 </body>
 </html>
