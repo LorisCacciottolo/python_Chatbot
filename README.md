@@ -25,7 +25,7 @@ or
 pip3 install -r requirements.txt
 ```
 
-Start the server
+Start the server (not compulsory if you just want to test the features)
 
 ```bash
 python main.py
