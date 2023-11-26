@@ -96,22 +96,32 @@ def words_mentioned_by_everyone(directory, tfidf_matrix):
 
     mots_tries = sorted(filtered_words.items(), key=lambda x: x[1], reverse=True)
 
-    return mots_tries[:10]
+    return mots_tries
 
 
+if __name__ == '__main__':
+    tfidf_matrix = calculate_tfidf_matrix("cleaned")
+    print("1 - Calculate the least important words")
+    print("2 - Calculate the words with the highest TD-IDF score")
+    print("3 - Calculate the most repeated words by President Chirac")
+    print("4 - Calculate which president spoke of the 'Nation' and which repeated it most often")
+    print("5 - Calculate which president was the first to speak about climate and/or ecology")
+    print("6 - Calculate the words that all the presidents mentioned.")
+    print()
 
+    choix = int(input("Le Choix: "))
 
-tfidf_matrix = calculate_tfidf_matrix("cleaned")
-
-print()
-print(non_important_words(tfidf_matrix))
-print()
-print(words_score_max(tfidf_matrix))
-print()
-print(repeat_word("cleaned", "Chirac"))
-print()
-print(presidents_speaking_nation("cleaned"))
-print()
-print(first_president_ecology("cleaned"))
-print()
-print(words_mentioned_by_everyone("cleaned", tfidf_matrix))
+    if choix == 1:
+        print(non_important_words(tfidf_matrix))
+    if choix == 2:
+        print(words_score_max(tfidf_matrix[0]))
+    if choix == 3:
+        print(repeat_word("cleaned", "Chirac"))
+    if choix == 4:
+        nation_presidents = presidents_speaking_nation("cleaned")
+        print("Presidents who have talked about nations",nation_presidents[0])
+        print("The president who spoke most about nations",nation_presidents[1])
+    if choix == 5:
+        print(first_president_ecology("cleaned"))
+    if choix == 6:
+        print(words_mentioned_by_everyone("cleaned", tfidf_matrix))

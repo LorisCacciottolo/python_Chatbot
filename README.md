@@ -33,6 +33,14 @@ or
 python3 main.py
 ```
 
+## Testing functionality
+
+This allows you to test functions separately with a small CLI.
+
+```bash
+python3 src/functionality.py
+```
+
 ## Run the functions separately
 
 We've already explained how to run the web interface that simplifies the use of the program.
