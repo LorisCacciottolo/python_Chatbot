@@ -4,9 +4,33 @@
 The `python_Chatbot` project is designed to explore basic text processing concepts, focusing on methods used in developing chatbots and generative artificial intelligences. This project does not use neural networks but instead relies on analyzing word frequency in a corpus to generate intelligent responses.
 
 ## Installation
-To install the necessary dependencies, run the following command:
+To install the project, run the following command:
 ```bash
-pip install numpy sklearn nltk
+git clone git@github.com:LorisCacciottolo/python_Chatbot.git
+```
+
+## Run Locally
+
+Go to the project directory
+
+```bash
+cd python_Chatbot
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+or
+pip3 install -r requirements.txt
+```
+
+Start the server
+
+```bash
+python main.py
+or
+python3 main.py
 ```
 
 ## Features
