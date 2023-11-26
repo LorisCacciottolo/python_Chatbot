@@ -33,6 +33,29 @@ or
 python3 main.py
 ```
 
+## Run the functions separately
+
+We've already explained how to run the web interface that simplifies the use of the program.
+If you want to execute a different function you can use these commands
+
+```bash
+python3 src/name.py
+python3 src/token.py
+python3 src/calculate_idf.py
+python3 src/calculate_tf.py
+python3 src/calculate_tfidf_matrix.py
+```
+`name.py` = List the names of the presidents in the file "speeches"
+
+`token.py` = Clean all the texts in the "speeches" folder and write them in the "cleaned" folder
+
+`calculate_idf.py` = Used to calculate the idf
+
+`calculate_tf.py` = Used to calculate the tf
+
+`calculate_tfidf_matrix.py`= Used to calculate the tfidf matrix
+
+
 ## Features
 - **Data Preprocessing**: Cleaning text by removing punctuation, converting to lowercase, and tokenization.
 - **TF-IDF Matrix Creation**: Calculating TF-IDF vectors for each unique word, thus creating a matrix where each row represents a word and each column a document.
