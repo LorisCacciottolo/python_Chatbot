@@ -9,7 +9,7 @@ def non_important_words(tfidf_matrix):
     for word, scores in tfidf_matrix.items():
         if all(score == 0 for score in scores):
             get_non_important_words.append(word)
-return get_non_important_words
+    return get_non_important_words
 
 # Display the word(s) having the highest TF-IDF score.
 def words_score_max(tfidf_matrix):
