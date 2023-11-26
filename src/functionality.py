@@ -114,7 +114,7 @@ if __name__ == '__main__':
     if choix == 1:
         print(non_important_words(tfidf_matrix))
     if choix == 2:
-        print(words_score_max(tfidf_matrix[0]))
+        print(words_score_max(tfidf_matrix))
     if choix == 3:
         print(repeat_word("cleaned", "Chirac"))
     if choix == 4:
