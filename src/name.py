@@ -1,7 +1,7 @@
 import re
 import os
 
-prenoms_presidents = {
+president_names = {
     "Chirac": "Jacques",
     "Mitterrand": "François",
     "Sarkozy": "Nicolas",
@@ -16,8 +16,8 @@ for file in os.listdir("speeches/"):
     if match:
         president_name = match.group(1).strip()
         speech_number = match.group(2) if match.group(2) != "" else "1"
-        prenom = prenoms_presidents.get(president_name, "PrénomInconnu")
-        extracted_info.append((prenom, president_name, speech_number))
+        firstname = president_names.get(president_name, "PrénomInconnu")
+        extracted_info.append((firstname, president_name, speech_number))
 
 presidents = set([info[1] for info in extracted_info])
 print("Liste des présidents :", presidents)
