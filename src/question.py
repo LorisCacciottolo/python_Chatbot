@@ -59,3 +59,14 @@ def calculate_tfidf(question, calculate_tf, calculate_idf):
 
 tfidf_question = calculate_tfidf(question, tf_question, idf_question)
 print(tfidf_question)
+
+
+
+
+
+def scalar_product(A, B):
+    for i in B :
+        print(i)
+        word_A = A.get(i, 0)
+
+scalar_product(tfidf_question, tfidf_ )
