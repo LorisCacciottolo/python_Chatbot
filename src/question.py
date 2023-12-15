@@ -1,13 +1,29 @@
 from calculate_tf import calculate_tf
 import math
 import os
+import re
 
-question = "Pourquoi python ne marche pas ?"
+
+def question_tokenisation(question):
+    question = question.lower()
+    question = re.sub(r"\w[’']", '', question)
+    question = re.sub(r"-", ' ', question)
+    question = re.sub(r"[^\w\s]", '', question)
+    question = re.sub(r"\s+", ' ', question).strip()
+    return question
+
+
+question = "Pourquoi Python ne marche pas!?"
+
+question = question_tokenisation(question)
+
+print(question)
 
 tf_question = calculate_tf(question)
 print(tf_question)
 
-def calculate_common_words(question, directory):
+
+def calculate_idf(question, directory):
     idf_dict = {}
     total_documents = len(os.listdir(directory))
     word_document_count = {}
@@ -29,5 +45,17 @@ def calculate_common_words(question, directory):
 
     return idf_dict
 
+idf_question = calculate_idf(question, "cleaned")
+print(idf_question)
 
-print(calculate_common_words(question, "../cleaned"))
+def calculate_tfidf(question, calculate_tf, calculate_idf):
+    tfidf_question = {}
+    for word in question.split():
+        tfidf = calculate_tf.get(word, 0) * calculate_idf.get(word, 0)
+        if word not in tfidf_question:
+            tfidf_question[word] = []
+        tfidf_question[word].append(tfidf)
+    return tfidf_question
+
+tfidf_question = calculate_tfidf(question, tf_question, idf_question)
+print(tfidf_question)
