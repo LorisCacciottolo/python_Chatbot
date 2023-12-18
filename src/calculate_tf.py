@@ -1,8 +1,21 @@
+import os
+
 def calculate_tf(text):
     words = text.split()
     tf_dict = {}
     for word in words:
         tf_dict[word] = tf_dict.get(word, 0) + 1
+    return tf_dict
+
+def calculate_tf_all_file(directory):
+    for file in os.listdir(directory):
+        file_path = f"{directory}/{file}"
+        with open(file_path, 'r', encoding='utf-8') as file:
+            words = file.read().split()
+            tf_dict = {}
+            for word in words:
+                tf_dict[word] = tf_dict.get(word, 0) + 1
+
     return tf_dict
 
 if __name__ == '__main__':

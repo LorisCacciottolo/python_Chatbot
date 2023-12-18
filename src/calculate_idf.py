@@ -13,9 +13,10 @@ def calculate_idf(directory):
                 word_document_count[word] = word_document_count.get(word, 0) + 1
 
     for word, count in word_document_count.items():
-        idf_dict[word] = math.log10(total_documents / count)
+        idf_dict[word] = math.log10(total_documents / (count + 1))
 
     return idf_dict
 
 if __name__ == '__main__':
     print(calculate_idf("cleaned"))
+

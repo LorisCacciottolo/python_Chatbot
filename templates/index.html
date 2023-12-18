@@ -56,6 +56,41 @@
                 <span class="font-bold">ChatBot: </span>
                 Welcome to Loris and Hector's ia ask us some questions and I'll get back to you according to my training.
             </div>
+
+            <div id="senderTextDisplay" style="display: none;" class="text-gray-700 hidden">
+                <span class="font-bold">User: </span>
+                <p id="senderText"></p>
+            </div>
+
+            <div id="sendTextDisplay" style="display: none;" class="text-gray-700 hidden">
+                <div id="loadingAnimation2" class="text-gray-700 flex space-x-4">
+                    <span class="font-bold">ChatBot: </span>
+                    <div class="loader loader--style8" title="7">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                        <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                        <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                        <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                        </svg>
+                    </div>
+                </div>
+                <span id="sendText2" class="font-bold"></span>
+                <p id="sendText"></p>
+            </div>
+
+
                 
 
         </div>
@@ -102,6 +137,44 @@
             document.getElementById('aiResponse').classList.remove('hidden');
         }, 2000);
     };
+
+    function sendMessage() {
+        console.log('Sending message...');
+        var message = document.getElementById('user_input').value;
+        sendToast("Requête bien envoyée !");
+        fetch('/process_question', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ question: message }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            document.getElementById('sendText').innerText = "";
+            document.getElementById('sendText2').innerText = "";
+
+            var div = document.getElementById('senderText');
+            div.innerText = message;
+            var div = document.getElementById('senderTextDisplay');
+            div.style.display = "block";
+            var div = document.getElementById('sendTextDisplay');
+            div.style.display = "block";
+            setTimeout(() => {
+                document.getElementById('loadingAnimation2').classList.add('hidden');
+                document.getElementById('aiResponse').classList.remove('hidden');
+                var div = document.getElementById('sendText');
+                div.innerText = data.sentence_with_word;
+                var div = document.getElementById('sendText2');
+                div.innerText = "ChatBot: ";
+            }, 2000);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
     
     </script>
 </body>
