@@ -14,7 +14,7 @@ def question_tokenisation(question):
     return question
 
 
-question = "Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"
+question = "europe"
 
 question = question_tokenisation(question)
 
@@ -48,7 +48,6 @@ def calculate_tfidf(question, calculate_idf):
     tfidf_question = {}
     for word in set(words_in_question):
         tf = words_in_question.count(word)
-        print("tf",tf)
         idf = calculate_idf.get(word, 0)
         tfidf_question[word] = tf * idf
 
@@ -114,6 +113,7 @@ def find_most_relevant_document(tfidf_corpus, tfidf_question):
 
 tfidf_corpus = calculate_tfidf_matrix("cleaned")
 
+print(tfidf_question)
 most_relevant_doc = find_most_relevant_document(tfidf_corpus, tfidf_question)
 print("Le document le plus pertinent est :", most_relevant_doc)
 
@@ -122,7 +122,7 @@ print("Le document le plus pertinent est :", most_relevant_doc)
 def find_highest_tfidf_word(tfidf_vector, document_path):
     sorted_tfidf = sorted(tfidf_vector.items(), key=lambda item: item[1], reverse=True)
 
-    with open(document_path, 'r', encoding='utf-8') as file:
+    with open(document_path.replace("speeches","cleaned"), 'r', encoding='utf-8') as file:
         document_content = file.read().split()
 
     for word, _ in sorted_tfidf:
@@ -137,7 +137,7 @@ def extract_sentence_with_word(document_path, word):
         text = file.read()
         sentences = text.split(".")
         for sentence in sentences:
-            if word in sentence.split():
+            if word in sentence.lower():
                 return sentence.strip() + '.'
     return "Le mot n'a pas été trouvé dans le document."
 

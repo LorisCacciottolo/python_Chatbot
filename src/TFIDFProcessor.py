@@ -105,7 +105,7 @@ class TFIDFProcessor:
     def find_highest_tfidf_word(tfidf_vector, document_path):
         sorted_tfidf = sorted(tfidf_vector.items(), key=lambda item: item[1], reverse=True)
 
-        with open(document_path, 'r', encoding='utf-8') as file:
+        with open(document_path.replace("speeches","cleaned"), 'r', encoding='utf-8') as file:
             document_content = file.read().split()
 
         for word, _ in sorted_tfidf:
@@ -120,7 +120,7 @@ class TFIDFProcessor:
             text = file.read()
             sentences = text.split(".")
             for sentence in sentences:
-                if word in sentence.split():
+                if word in sentence.lower():
                     return sentence.strip() + '.'
         return "Le mot n'a pas été trouvé dans le document."
 
