@@ -102,7 +102,7 @@ def words_mentioned_by_everyone(directory, tfidf_matrix):
 if __name__ == '__main__':
     tfidf_matrix = calculate_tfidf_matrix("cleaned")
     print("1 - Calculate the least important words")
-    print("2 - Calculate the words with the highest TD-IDF score")
+    print("2 - Calculate the words with the highest TF-IDF score")
     print("3 - Calculate the most repeated words by President Chirac")
     print("4 - Calculate which president spoke of the 'Nation' and which repeated it most often")
     print("5 - Calculate which president was the first to speak about climate and/or ecology")
