@@ -64,9 +64,19 @@ print(tfidf_question)
 
 
 
-def scalar_product(A, B):
-    for i in B :
-        print(i)
-        word_A = A.get(i, 0)
+def scalar_Product(A, B):
+    result = sum(a * b for a, b in zip(A,B))
+    return result
 
-scalar_product(tfidf_question, tfidf_ )
+
+def normvector(A):
+    return math.sqrt(sum(element*2 for element in A))
+
+
+def angularsimilarity(A,B):
+    scalar_A_B = scalar_Product(A,B)
+    NormA = normvector(A)
+    NormB = normvector(B)
+    if (NormA NormB) == 0:
+        return 0
+    return (scalar_A_B)/(NormA * NormB)
