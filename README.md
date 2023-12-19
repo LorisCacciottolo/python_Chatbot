@@ -65,6 +65,7 @@ python3 src/token.py
 python3 src/calculate_idf.py
 python3 src/calculate_tf.py
 python3 src/calculate_tfidf_matrix.py
+python3 src/TFIDFProcessor.py
 ```
 
 - `name.py` = Lists the names of the presidents in the "speeches" folder.
@@ -72,6 +73,7 @@ python3 src/calculate_tfidf_matrix.py
 - `calculate_idf.py` = Calculates the IDF.
 - `calculate_tf.py` = Calculates the TF.
 - `calculate_tfidf_matrix.py`= Calculates the TF-IDF matrix.
+- `TFIDFProcessor.py`= Generates the answer based on cleaned text.
 
 ## Features
 - **Data Preprocessing**: Cleaning text by removing punctuation, converting to lowercase, and tokenizing.
