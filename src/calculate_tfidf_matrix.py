@@ -7,11 +7,15 @@ def calculate_tfidf_matrix(directory):
     tfidf_matrix = {}
     all_words = set()
 
+    # Iterate through the files in cleaned directory
     for file in os.listdir(directory):
+        # Open the file for reading with UTF-8 encoding
         with open(f"{directory}/{file}", 'r', encoding='utf-8') as file:
             all_words.update(file.read().split())
 
+    # Iterate through the files in cleaned directory
     for file in os.listdir(directory):
+        # Open the file for reading with UTF-8 encoding
         with open(f"{directory}/{file}", 'r', encoding='utf-8') as file:
             tf_dict = calculate_tf(file.read())
             for word in all_words:

@@ -13,9 +13,13 @@ class TFIDFProcessor:
     @staticmethod
     def question_tokenisation(question):
         question = question.lower()
+        # Removes all apostrophes and characters following them within words.
         question = re.sub(r"\w[’']", '', question)
+        # Replaces hyphens with spaces to avoid concatenation of words.
         question = re.sub(r"-", ' ', question)
+        # Removes all characters except word characters (letters and numbers) and whitespace.
         question = re.sub(r"[^\w\s]", '', question)
+        # Replaces multiple whitespace characters with a single space and trims leading/trailing spaces.
         question = re.sub(r"\s+", ' ', question).strip()
         return question
 
@@ -125,6 +129,7 @@ class TFIDFProcessor:
         return "Le mot n'a pas été trouvé dans le document."
 
 
+# Call all function for test and debug
 processor = TFIDFProcessor("cleaned")
 question = "Peux-tu me dire comment une nation peut-elle prendre soin du climat ?" # Exemple question
 tokenized_question = processor.question_tokenisation(question)
