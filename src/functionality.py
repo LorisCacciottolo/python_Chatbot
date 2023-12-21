@@ -35,12 +35,6 @@ def words_score_max(tfidf_matrix) :
     return max_words
 
 
-# Display the most repeated word by the president Chirac
-# Import the necessary modules
-import os
-
-
-# Define the function repeat_word that takes a directory path and a president's name as parameters
 def repeat_word(directory, president_name):
     # Initialize an empty dictionary to store the term frequency for each word
     tf_chirac = {}
@@ -70,46 +64,39 @@ def repeat_word(directory, president_name):
     return maxTuple
 
 
+
 # Indicate the name(s) of the president(s) who spoke about the « Nation » and the one who has repeated this word the most times
-# Import the necessary modules
-import os
+def presidents_speaking_nation(directory):
+    freq_nation = {}
+    max_freq = 0
+    president_max = ""
 
-
-# Define the function repeat_word that takes a directory path and a president's name as parameters
-def repeat_word(directory, president_name):
-    # Initialize an empty dictionary
-    tf_chirac = {}
-
-    # Iterate through the files in cleaned directory 
+    # Iterate through the files in cleaned directory
     for file in os.listdir(directory):
-        # Check if the president's name is not in the filename, if true, skip to the next iteration
-        if president_name not in str(file):
-            continue
-
         # Open the file for reading with UTF-8 encoding
-        with open(f"{directory}/{file}", 'r', encoding='utf-8') as file:
-            # Calculate the term frequency (tf) for each word in the file
-            tf_dict = calculate_tf(file.read())
+        with open(f"{directory}/{file}", 'r', encoding='utf-8') as file_content:
+            content = file_content.read()
+            count = content.count("nation")
+            if count > 0:
+                # Extracts the president's name from the file name using regex, assuming the format 'Nomination_[President's Name][Year].txt'
+                # ([a-zA-Z\s]+) matches and captures a sequence of alphabetic characters (both uppercase and lowercase) and spaces.
+                # (\d*) matches and captures zero or more digits. It's used here to extract the year from the file name.
+                president = re.match(r"Nomination_([a-zA-Z\s]+)(\d*)\.txt", file).group(1)
+                freq_nation[president] = freq_nation.get(president, 0) + count
+                if freq_nation[president] > max_freq:
+                    max_freq = freq_nation[president]
+                    president_max = president
 
-            # Iterate through the items (word, tf) in the tf_dict
-            for word, tf in tf_dict.items():
-                # If the word is not in tf_chirac, add it with an initial value of 0
-                if word not in tf_chirac:
-                    tf_chirac[word] = 0
-                # Increment the term frequency of the word in tf_chirac
-                tf_chirac[word] = tf_chirac[word] + tf
-
-    # Find the word with the maximum term frequency in tf_chirac
-    maxTuple = max(tf_chirac.items(), key=lambda i: int(i[1]))
-
-    # Return the (word, tf) tuple with the maximum term frequency
-    return maxTuple
+    return freq_nation, president_max
 
 
 # Indicate the first president talking about the climate and/or the ecology.
 def first_president_ecology(directory):
+    # Iterate through the files in cleaned directory
     for file in sorted(os.listdir(directory)):
+        # Open the file for reading with UTF-8 encoding
         with open(f"{directory}/{file}", 'r', encoding='utf-8') as file_content:
+            # Check if "climat" or "écologie" is in file
             if "climat" in file_content.read() or "écologie" in file_content.read():
                 return re.match(r"Nomination_([a-zA-Z\s]+)(\d*)\.txt", file).group(1)
     return None
@@ -119,12 +106,17 @@ def first_president_ecology(directory):
 def words_mentioned_by_everyone(directory, tfidf_matrix):
     non_important = non_important_words(tfidf_matrix)
     all_text = ""
+    # Iterate through the files in cleaned directory
     for file in os.listdir(directory):
+        # Open the file for reading with UTF-8 encoding
         with open(f"{directory}/{file}", 'r', encoding='utf-8') as file:
             all_text += file.read() + " "
     tf_all = {}
+    # Iterate through the files in cleaned directory
     for file in os.listdir(directory):
+        # Open the file for reading with UTF-8 encoding
         with open(f"{directory}/{file}", 'r', encoding='utf-8') as file:
+            # Calculate the tf of the current file
             tf_dict = calculate_tf(file.read())
             for word, tf in tf_dict.items():
                 if word not in all_text: continue
@@ -132,16 +124,20 @@ def words_mentioned_by_everyone(directory, tfidf_matrix):
                     tf_all[word] = 0
                 tf_all[word] = tf_all[word] + tf
 
+    # Check if word selected not in non_important word
     filtered_words = {}
     for word, count in tf_all.items():
         if word not in non_important:
             filtered_words[word] = count
 
+    # Sorts 'filtered_words' dictionary by value in descending order. 'filtered_words' is a dict where keys are words and values are their frequencies. 
+    # The sorting is done based on frequencies (x[1]), with the most frequent words first.
     mots_tries = sorted(filtered_words.items(), key=lambda x: x[1], reverse=True)
 
     return mots_tries
 
 
+# Our small but cool CLI
 if __name__ == '__main__':
     tfidf_matrix = calculate_tfidf_matrix("cleaned")
     print("1 - Calculate the least important words")

@@ -126,7 +126,7 @@ class TFIDFProcessor:
 
 
 processor = TFIDFProcessor("cleaned")
-question = "Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"
+question = "Peux-tu me dire comment une nation peut-elle prendre soin du climat ?" # Exemple question
 tokenized_question = processor.question_tokenisation(question)
 idf_question = processor.calculate_idf_question(tokenized_question)
 tfidf_question = processor.calculate_tfidf(tokenized_question, idf_question)
