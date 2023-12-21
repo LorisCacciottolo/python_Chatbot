@@ -5,22 +5,30 @@ from calculate_tf import calculate_tf
 
 # Display the list of the non important words in the corpus of documents. A word is said non important if his TD-IDF = 0 in every file.
 def non_important_words(tfidf_matrix):
+    # create a variable that will contain the non important words.
     get_non_important_words = []
+    # loop all the items of our tf-idf matrix.
     for word, scores in tfidf_matrix.items():
-        if all(score == 0 for score in scores):
+        if all(score == 0 for score in scores):  # "all" returns "true" if the score = 0.
             get_non_important_words.append(word)
     return get_non_important_words
 
 # Display the word(s) having the highest TF-IDF score.
-def words_score_max(tfidf_matrix):
+def words_score_max(tfidf_matrix) :
     max_score = 0
+    # Initialize a list of words.
     max_words = []
 
+    # Iterate through the (word, scores) pairs in the tfidf_matrix dictionary
     for word, scores in tfidf_matrix.items():
+        # Loop the score list
         for score in scores:
+            # Check if the current score is greater than the maximum score
             if score > max_score:
+                # If so, update the maximum score and reset the list of maximum words
                 max_score = score
                 max_words = [word]
+            # If the score is equal to the maximum score found so far
             elif score == max_score:
                 max_words.append(word)
 
@@ -28,39 +36,74 @@ def words_score_max(tfidf_matrix):
 
 
 # Display the most repeated word by the president Chirac
+# Import the necessary modules
+import os
+
+
+# Define the function repeat_word that takes a directory path and a president's name as parameters
 def repeat_word(directory, president_name):
+    # Initialize an empty dictionary to store the term frequency for each word
     tf_chirac = {}
+
+    # Iterate through the files in cleaned directory
     for file in os.listdir(directory):
-        if president_name not in str(file): continue
+        # Check if the president's name is not in the filename, if true, skip to the next iteration
+        if president_name not in str(file):
+            continue
+
+        # Open the file for reading with UTF-8 encoding
         with open(f"{directory}/{file}", 'r', encoding='utf-8') as file:
+            # Read the file
             tf_dict = calculate_tf(file.read())
+
+            # Iterate through the items (word, tf) in the tf_dict
             for word, tf in tf_dict.items():
+                # If the word is not in tf_chirac, set the tf of chirac to 0
                 if word not in tf_chirac:
                     tf_chirac[word] = 0
+                # Increment the term frequency of the word in tf_chirac
                 tf_chirac[word] = tf_chirac[word] + tf
 
-    maxTuple = max(tf_chirac.items(), key = lambda i : int(i[1]))
+    # Find the word with the maximum term frequency in tf_chirac
+    maxTuple = max(tf_chirac.items(), key=lambda i: int(i[1]))
+
     return maxTuple
 
 
 # Indicate the name(s) of the president(s) who spoke about the « Nation » and the one who has repeated this word the most times
-def presidents_speaking_nation(directory):
-    freq_nation = {}
-    max_freq = 0
-    president_max = ""
+# Import the necessary modules
+import os
 
+
+# Define the function repeat_word that takes a directory path and a president's name as parameters
+def repeat_word(directory, president_name):
+    # Initialize an empty dictionary
+    tf_chirac = {}
+
+    # Iterate through the files in cleaned directory 
     for file in os.listdir(directory):
-        with open(f"{directory}/{file}", 'r', encoding='utf-8') as file_content:
-            content = file_content.read()
-            count = content.count("nation")
-            if count > 0:
-                president = re.match(r"Nomination_([a-zA-Z\s]+)(\d*)\.txt", file).group(1)
-                freq_nation[president] = freq_nation.get(president, 0) + count
-                if freq_nation[president] > max_freq:
-                    max_freq = freq_nation[president]
-                    president_max = president
+        # Check if the president's name is not in the filename, if true, skip to the next iteration
+        if president_name not in str(file):
+            continue
 
-    return freq_nation, president_max
+        # Open the file for reading with UTF-8 encoding
+        with open(f"{directory}/{file}", 'r', encoding='utf-8') as file:
+            # Calculate the term frequency (tf) for each word in the file
+            tf_dict = calculate_tf(file.read())
+
+            # Iterate through the items (word, tf) in the tf_dict
+            for word, tf in tf_dict.items():
+                # If the word is not in tf_chirac, add it with an initial value of 0
+                if word not in tf_chirac:
+                    tf_chirac[word] = 0
+                # Increment the term frequency of the word in tf_chirac
+                tf_chirac[word] = tf_chirac[word] + tf
+
+    # Find the word with the maximum term frequency in tf_chirac
+    maxTuple = max(tf_chirac.items(), key=lambda i: int(i[1]))
+
+    # Return the (word, tf) tuple with the maximum term frequency
+    return maxTuple
 
 
 # Indicate the first president talking about the climate and/or the ecology.
